@@ -1,0 +1,56 @@
+[
+  {
+    "firstName":"taraq",
+    "lastName": "K",
+    "email":"taraq.sai@gmail.com",
+    "address":"vijayawada"
+  },
+  {
+    "firstName":"sai",
+    "lastName": "R",
+    "email":"sai@gmail.com",
+    "address":"vijayawada"
+  },
+  {
+    "firstName":"sri",
+    "lastName": "C",
+    "email":"sri.sai@gmail.com",
+    "address":"west"
+  },
+  {
+    "firstName":"madhu",
+    "lastName": "B",
+    "email":"madhu.sai@gmail.com",
+    "address":"gudem"
+  },
+  {
+    "firstName":"hafiz",
+    "lastName": "sk",
+    "email":"hafiz.sk@gmail.com",
+    "address":"k.lnk"
+  },
+  {
+    "firstName":"swathi",
+    "lastName": "k",
+    "email":"swathi.sai@gmail.com",
+    "address":"v.ptnm"
+  },
+  {
+    "firstName":"priya",
+    "lastName": "p",
+    "email":"priiya.sai@gmail.com",
+    "address":"p.prm"
+  },
+  {
+    "firstName":"swapna",
+    "lastName": "s",
+    "email":"madhu.sai@gmail.com",
+    "address":"slin"
+  },
+  {
+    "firstName":"karthy",
+    "lastName": "c",
+    "email":"karthy.c@gmail.com",
+    "address":"k.cony"
+  }  
+]

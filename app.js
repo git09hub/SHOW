@@ -1,18 +1,23 @@
 var express = require('express');
-var app = express();
+//var apiExp = require('expressjs-api-explorer')(app,express);
+var swaggerUI = require('express-swagger-explorer')();
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
-var apiExp = require('expressjs-api-explorer')(app,express);
+var cors = require("cors");
+
 //connect to MongoDB
 mongoose.connect('mongodb://localhost/testForAuth');
+
+var app = express();
 var db = mongoose.connection;
 
 //handle mongo error
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () {
   // we're connected!
+  console.log('db connected!');
 });
 
 //use sessions for tracking logins
@@ -44,6 +49,13 @@ app.use(function (req, res, next) {
   next(err);
 });
 
+//add cors headers
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 // error handler
 // define as the last app.use callback
 app.use(function (err, req, res, next) {
@@ -51,8 +63,19 @@ app.use(function (err, req, res, next) {
   res.send(err.message);
 });
 
+app.use('/api-explorer', swaggerUI);
 
 // listen on port 3000
 app.listen(3000, function () {
   console.log('Express app listening on port 3000');
 });
+
+app.options('*', cors()); 
+
+app.all('/*', function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header("Access-Control-Allow-Headers", "X-Requested-With,Content-Type");
+    next();
+});
+
