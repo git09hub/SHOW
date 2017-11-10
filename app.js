@@ -8,7 +8,7 @@ var MongoStore = require('connect-mongo')(session);
 var cors = require("cors");
 
 //connect to MongoDB
-mongoose.connect('mongodb://localhost/testForAuth');
+mongoose.connect('mongodb://localhost/testForAuth', { useMongoClient: true });
 
 var app = express();
 var db = mongoose.connection;
