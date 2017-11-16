@@ -9,6 +9,14 @@ router.get('/', function (req, res, next) {
   return res.sendFile(path.join(__dirname + '/templateLogReg/index.html'));
 });
 
+router.all('/*', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Content-Type,X-Requested-With");
+  // response.header('Access-Control-Allow-Origin', '*');
+  // response.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+  // response.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+  next();
+});
 
 //POST route for updating data
 router.post('/', function (req, res, next) {
@@ -86,7 +94,7 @@ router.get('/listUsers', function (req, res, next) {
       if (error) {
         return next(error);
       }else{
-        //console.log('-----'+JSON.stringify(users));
+        console.log('-----'+JSON.stringify(users));
         return res.send(users);
         /*var rs = '<h1>Users List </h1><br/>';
         var i = 0;
@@ -121,9 +129,35 @@ router.get('/readJSOn', function (req, res, next) {
 	var jsonContent = JSON.parse(contents);
 	res.setHeader('Access-Control-Allow-Origin', '*');
 	res.send(jsonContent);
-  
-  
+    
 });
 
+// GET for login
+router.post('/expresslogin', function (req, res, next) {
+  console.log('request....'+JSON.stringify(req.body));
+  //res.setHeader('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+
+  User.findOne({ email: req.body.email })
+  .exec(function (err, user) {
+    //console.log('144--reponse...'+JSON.stringify(user));
+    if (err) {
+      return next(err)
+    } else if (!user) {
+      var err = new Error('User not found.');
+      err.status = 401;
+      return next(err);
+    }else{
+      console.log(req.body.password+'152'+user.password);
+      if(user.password == req.body.password){
+        console.log('login success...151..router.js...');
+        return res.send({"status":"success","response":"200"});
+      }else{
+        return res.send({"status":"fail","response":"420"});
+      }
+    }
+  });
+});
 
 module.exports = router;
